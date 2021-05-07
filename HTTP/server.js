@@ -1,7 +1,25 @@
+// npm i nodemon -- modulo para ambiente de dev (monitora o arquivo server.js em nosso caso)
+
 const http = require('http')
+const fs = require('fs')
+const path = require('path')
 
 http.createServer((req, res) => {
-    console.log(req)
+   const file = req.url === '/' ? 'index.html' : req.url
+   const filepath = path.join(__dirname, 'public', file)
+   const extname = path.extname(filepath)
 
-    return
+   const allowedFileTypes = ['.html', '.css', '.js']
+   const allowed = allowedFileTypes.find(item => item == extname)
+
+   if(!allowed) return 
+   
+        fs.readFile(
+            filepath,
+            (err, content) => {
+                if(err) throw err
+
+                res.end(content)
+            }
+        )
 }).listen(5000, () => console.log('Server is running'))
