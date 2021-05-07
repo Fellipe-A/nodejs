@@ -1,4 +1,4 @@
-// Show system memory info every 1s
+// Show system memory info every second
 
 const os = require('os')
 
