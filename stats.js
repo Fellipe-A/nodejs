@@ -1,6 +1,7 @@
 // Show system memory info every second
 
 const os = require('os')
+const log = require('./logger')
 
 setInterval(() => {
     const { freemem, totalmem } = os
@@ -20,5 +21,8 @@ setInterval(() => {
     console.clear()
     console.log("######## PC STATS ########")
     console.table(stats)
+
+    log(`${JSON.stringify(stats)}\n`)
+
 }, 1000);
 
